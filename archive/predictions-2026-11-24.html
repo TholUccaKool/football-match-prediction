@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Predictions 2026-11-24</title>
+<style>* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+       background: #f5f5f5; color: #1a1a1a; max-width: 820px; margin: 0 auto; padding: 16px 12px; }
+h1 { font-size: 1.4rem; margin-bottom: 4px; }
+.meta { color: #666; font-size: 0.82rem; margin-bottom: 12px; }
+.demo-banner { background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px;
+               padding: 8px 12px; margin-bottom: 14px; font-size: 0.85rem; }
+.about-box { background: #f0f4ff; border: 1px solid #c7d2fe; border-radius: 8px;
+             padding: 12px 16px; margin-bottom: 16px; font-size: 0.84rem; line-height: 1.45; }
+.about-box strong { color: #4338ca; }
+/* ── Date tabs ── */
+.date-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 12px 0;
+             -webkit-overflow-scrolling: touch; scrollbar-width: none; position: sticky;
+             top: 0; background: #f5f5f5; z-index: 10; }
+.date-tabs::-webkit-scrollbar { display: none; }
+.date-tab { flex-shrink: 0; padding: 6px 14px; border-radius: 20px; border: 1px solid #ddd;
+            background: #fff; font-size: 0.82rem; font-weight: 500; color: #555; cursor: pointer;
+            transition: all 0.15s; white-space: nowrap; }
+.date-tab:hover { border-color: #999; }
+.date-tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+.date-group { display: none; }
+.date-group.active { display: block; }
+/* ── Top picks ── */
+.top-picks { background: #fff; border-radius: 8px; border: 1px solid #ddd;
+             padding: 12px 16px; margin-bottom: 16px; }
+.top-picks-hdr { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+.top-picks ol { padding-left: 22px; }
+.top-picks li { padding: 2px 0; font-size: 0.85rem; }
+.top-picks .pick-name { font-weight: 600; }
+.top-picks .pick-matchup { color: #666; }
+.top-picks .pick-pct { font-weight: 600; }
+.top-picks .pick-tag { font-size: 0.75rem; color: #888; }
+.top-picks .market-tag { font-size: 0.7rem; font-weight: 600; color: #fff;
+            border-radius: 3px; padding: 1px 5px; margin-right: 4px; }
+.top-picks .mt-1x2 { background: #4338ca; }
+.top-picks .mt-ou { background: #f59e0b; }
+.top-picks .mt-btts { background: #22c55e; }
+.top-picks .mt-ah { background: #3b82f6; }
+.top-picks .caveat { font-size: 0.82rem; color: #666; margin-bottom: 8px; line-height: 1.4; }
+.top-picks .section-note { font-size: 0.82rem; color: #666; margin-bottom: 8px; line-height: 1.4; }
+/* ── League sections ── */
+.league-section { margin-bottom: 16px; }
+.league-hdr { font-size: 0.88rem; font-weight: 600; color: #555; padding: 8px 12px;
+              background: #e9ecef; border-radius: 6px 6px 0 0; }
+/* ── Match cards (compact) ── */
+.match-card { background: #fff; border: 1px solid #ddd; border-top: none;
+              padding: 10px 14px; cursor: pointer; transition: background 0.1s; }
+.match-card:last-child { border-radius: 0 0 6px 6px; }
+.league-section .match-card:first-of-type { border-top: 1px solid #ddd; }
+.match-card:hover { background: #fafafa; }
+.match-summary { display: flex; align-items: center; gap: 10px; }
+.match-teams { flex: 1; font-size: 0.92rem; font-weight: 600; }
+.match-time { font-size: 0.78rem; color: #888; flex-shrink: 0; min-width: 44px; text-align: right; }
+.match-pick { font-size: 0.78rem; color: #4338ca; flex-shrink: 0; max-width: 180px;
+              text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.match-pick strong { font-weight: 600; }
+.backup-tag { display: inline-block; font-size: 0.65rem; font-weight: 600; color: #b45309;
+              background: #fef3c7; border: 1px solid #fcd34d; border-radius: 3px;
+              padding: 0 4px; margin-left: 6px; vertical-align: middle; }
+.expand-icon { font-size: 0.7rem; color: #bbb; flex-shrink: 0; transition: transform 0.2s; }
+.match-card.open .expand-icon { transform: rotate(180deg); }
+/* ── Detail panel (hidden by default) ── */
+.match-detail { display: none; padding-top: 10px; border-top: 1px solid #eee; margin-top: 10px; }
+.match-card.open .match-detail { display: block; }
+.consensus-badge { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 6px;
+                   padding: 7px 10px; margin-bottom: 10px; font-size: 0.84rem; }
+.consensus-badge strong { color: #4338ca; }
+.consensus-badge .agree-tag { font-size: 0.78rem; color: #666; }
+.source-row { display: flex; align-items: center; margin-bottom: 5px; }
+.source-label { width: 90px; font-size: 0.78rem; font-weight: 500; color: #555; flex-shrink: 0; }
+.bar-wrap { flex: 1; display: flex; height: 20px; border-radius: 4px; overflow: hidden; }
+.seg { display: flex; align-items: center; justify-content: center;
+       font-size: 0.68rem; font-weight: 600; color: #fff; min-width: 26px; }
+.seg-home { background: #3b82f6; }
+.seg-draw { background: #9ca3af; }
+.seg-away { background: #ef4444; }
+.secondary-markets { margin-top: 10px; padding-top: 8px; border-top: 1px solid #eee; }
+.secondary-markets h4 { font-size: 0.78rem; font-weight: 600; color: #555; margin: 6px 0 3px 0; }
+.secondary-markets h4:first-child { margin-top: 0; }
+.two-bar { display: flex; height: 20px; border-radius: 4px; overflow: hidden; margin-bottom: 2px; }
+.two-bar .seg-over { background: #f59e0b; }
+.two-bar .seg-under { background: #6366f1; }
+.two-bar .seg-yes { background: #22c55e; }
+.two-bar .seg-no { background: #ef4444; }
+.two-bar .seg-cover { background: #3b82f6; }
+.two-bar .seg-push { background: #9ca3af; }
+.two-bar .seg-lose { background: #ef4444; }
+.bar-label { font-size: 0.7rem; color: #888; margin-bottom: 4px; }
+.score-list { display: flex; flex-wrap: wrap; gap: 5px; margin: 3px 0; }
+.score-chip { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 4px;
+              padding: 2px 7px; font-size: 0.75rem; font-weight: 500; }
+.score-chip .pct { color: #666; font-weight: 400; }
+.result-line { margin-top: 8px; padding-top: 7px; border-top: 1px solid #eee;
+               font-size: 0.84rem; font-weight: 500; }
+.correct { border-left: 4px solid #22c55e; }
+.incorrect { border-left: 4px solid #ef4444; }
+.footer { margin-top: 24px; padding-top: 14px; border-top: 1px solid #ccc;
+          font-size: 0.78rem; color: #888; }
+.unvalidated { font-size: 0.72rem; color: #b45309; font-style: italic; }
+/* ── Archive navigation ── */
+.archive-nav { display: flex; justify-content: space-between; align-items: center;
+               padding: 8px 12px; margin-bottom: 12px; background: #fff; border: 1px solid #ddd;
+               border-radius: 8px; font-size: 0.88rem; }
+.archive-nav-link { color: #4338ca; text-decoration: none; font-weight: 500; min-width: 80px; }
+.archive-nav-link:first-child { text-align: left; }
+.archive-nav-link:last-child { text-align: right; }
+.archive-nav-link:hover { text-decoration: underline; }
+.archive-nav-link.disabled { visibility: hidden; }
+.archive-nav-current { font-weight: 600; text-align: center; }
+.archive-banner { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px;
+                  padding: 8px 12px; margin-bottom: 14px; font-size: 0.85rem; text-align: center; }
+.archive-banner a { color: #4338ca; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="archive-nav">
+<a class="archive-nav-link" href="predictions-2026-11-23.html">&larr; Nov 23</a>
+<span class="archive-nav-current">Nov 24</span>
+<span class="archive-nav-link disabled"></span>
+</div>
+<div class="archive-banner">Archived prediction round from Nov 24 &mdash; <a href="../index.html">view latest predictions</a></div>
+<h1>Match Predictions</h1>
+<p class="meta">Generated 2026-11-24 18:37 &middot; 12 matches across 2 day(s)</p>
+<div class="about-box"><strong>What is this?</strong> Automated football match predictions for the top European leagues, built from three statistical models (Elo ratings, Dixon-Coles, and XGBoost) trained on eight seasons of historical data. Updates Mon/Tue/Fri. Click any match to expand full detail. <strong>Important:</strong> these are model estimates, not betting advice. None of these models consistently beat the market.</div>
+<div class="date-tabs">
+<div class="date-tab" data-date="2026-11-24" onclick="switchTab('2026-11-24')">Today <span style="opacity:0.6">(8)</span></div>
+<div class="date-tab" data-date="2026-11-25" onclick="switchTab('2026-11-25')">Tomorrow <span style="opacity:0.6">(4)</span></div>
+</div>
+<div class="top-picks">
+<div class="top-picks-hdr">Best Pick Every Match (All Markets)</div>
+<p class="caveat">A full 8-season backtest of this exact approach: raises hit rate to ~58% (vs ~51% for match-result-only picks), but displayed confidence runs ~7 points hot on average (stated ~65%, actual ~58%). About 83% of entries here are O/U or BTTS &mdash; single-model estimates, not full 4-source consensus. BTTS specifically has never been checked against real bookmaker odds.</p>
+<ol>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-ou">O/U</span><span class="pick-name">Over 2.5 goals</span> <span class="pick-matchup">(Cardiff v Preston)</span> &mdash; <span class="pick-pct">67.3%</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Wolves to win</span> <span class="pick-matchup">(Wolves v Derby)</span> &mdash; <span class="pick-pct">66.5%</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-ou">O/U</span><span class="pick-name">Under 2.5 goals</span> <span class="pick-matchup">(Charlton v Lincoln)</span> &mdash; <span class="pick-pct">65.0%</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-ou">O/U</span><span class="pick-name">Over 2.5 goals</span> <span class="pick-matchup">(Norwich v QPR)</span> &mdash; <span class="pick-pct">62.7%</span></li>
+<li class="top-pick-item" data-date="2026-11-25"><span class="market-tag mt-ou">O/U</span><span class="pick-name">Under 2.5 goals</span> <span class="pick-matchup">(Watford v Blackburn)</span> &mdash; <span class="pick-pct">61.0%</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-btts">BTTS</span><span class="pick-name">Both teams to score</span> <span class="pick-matchup">(Sheffield United v Southampton)</span> &mdash; <span class="pick-pct">59.9%</span> <span class="pick-tag">(unvalidated)</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Middlesbrough to win</span> <span class="pick-matchup">(Middlesbrough v Swansea)</span> &mdash; <span class="pick-pct">59.5%</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-btts">BTTS</span><span class="pick-name">Both teams to score</span> <span class="pick-matchup">(Portsmouth v West Ham)</span> &mdash; <span class="pick-pct">59.1%</span> <span class="pick-tag">(unvalidated)</span></li>
+<li class="top-pick-item" data-date="2026-11-25"><span class="market-tag mt-btts">BTTS</span><span class="pick-name">Both teams to score</span> <span class="pick-matchup">(Burnley v Birmingham)</span> &mdash; <span class="pick-pct">56.9%</span> <span class="pick-tag">(unvalidated)</span></li>
+<li class="top-pick-item" data-date="2026-11-25"><span class="market-tag mt-btts">BTTS</span><span class="pick-name">Both teams to score</span> <span class="pick-matchup">(Bolton v West Brom)</span> &mdash; <span class="pick-pct">55.8%</span> <span class="pick-tag">(unvalidated)</span></li>
+<li class="top-pick-item" data-date="2026-11-25"><span class="market-tag mt-ou">O/U</span><span class="pick-name">Under 2.5 goals</span> <span class="pick-matchup">(Stoke v Millwall)</span> &mdash; <span class="pick-pct">53.8%</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-ou">O/U</span><span class="pick-name">Under 2.5 goals</span> <span class="pick-matchup">(Bristol City v Wrexham)</span> &mdash; <span class="pick-pct">53.5%</span></li>
+</ol></div>
+<div class="top-picks">
+<div class="top-picks-hdr">Best-Calibrated Picks (Match Result Only)</div>
+<p class="section-note">This list alone is well-calibrated in backtesting (states ~50%, actual ~51%) &mdash; the safer, more honest-confidence view.</p>
+<ol>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Wolves to win</span> <span class="pick-matchup">(Wolves v Derby)</span> &mdash; <span class="pick-pct">66.5%</span> <span class="pick-tag">[unanimous]</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Middlesbrough to win</span> <span class="pick-matchup">(Middlesbrough v Swansea)</span> &mdash; <span class="pick-pct">59.5%</span> <span class="pick-tag">[unanimous]</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Cardiff to win</span> <span class="pick-matchup">(Cardiff v Preston)</span> &mdash; <span class="pick-pct">57.8%</span> <span class="pick-tag">[unanimous]</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Norwich to win</span> <span class="pick-matchup">(Norwich v QPR)</span> &mdash; <span class="pick-pct">48.6%</span> <span class="pick-tag">[unanimous]</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">West Ham to win</span> <span class="pick-matchup">(Portsmouth v West Ham)</span> &mdash; <span class="pick-pct">47.9%</span> <span class="pick-tag">[unanimous]</span></li>
+<li class="top-pick-item" data-date="2026-11-25"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">West Brom to win</span> <span class="pick-matchup">(Bolton v West Brom)</span> &mdash; <span class="pick-pct">47.0%</span> <span class="pick-tag">[unanimous]</span></li>
+<li class="top-pick-item" data-date="2026-11-25"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Stoke to win</span> <span class="pick-matchup">(Stoke v Millwall)</span> &mdash; <span class="pick-pct">41.4%</span> <span class="pick-tag">[unanimous]</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Southampton to win</span> <span class="pick-matchup">(Sheffield United v Southampton)</span> &mdash; <span class="pick-pct">38.7%</span> <span class="pick-tag">[split]</span></li>
+<li class="top-pick-item" data-date="2026-11-25"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Birmingham to win</span> <span class="pick-matchup">(Burnley v Birmingham)</span> &mdash; <span class="pick-pct">38.3%</span> <span class="pick-tag">[unanimous]</span></li>
+<li class="top-pick-item" data-date="2026-11-25"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Blackburn to win</span> <span class="pick-matchup">(Watford v Blackburn)</span> &mdash; <span class="pick-pct">36.8%</span> <span class="pick-tag">[split]</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Charlton to win</span> <span class="pick-matchup">(Charlton v Lincoln)</span> &mdash; <span class="pick-pct">36.6%</span> <span class="pick-tag">[split]</span></li>
+<li class="top-pick-item" data-date="2026-11-24"><span class="market-tag mt-1x2">1X2</span><span class="pick-name">Bristol City to win</span> <span class="pick-matchup">(Bristol City v Wrexham)</span> &mdash; <span class="pick-pct">36.0%</span> <span class="pick-tag">[split]</span></li>
+</ol></div>
+<div class="date-group" id="day-2026-11-24">
+<div class="league-section">
+<div class="league-hdr">Championship</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Bristol City v Wrexham</div>
+<div class="match-pick"><strong>36%</strong> Bristol City to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Bristol City to win</strong> &mdash; 36.0% avg <span class="agree-tag">(sources split: 2 Home, 2 Away)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:38.7%">39%</div><div class="seg seg-draw" style="width:28.9%">29%</div><div class="seg seg-away" style="width:32.3%">32%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:32.8%">33%</div><div class="seg seg-draw" style="width:27.9%">28%</div><div class="seg seg-away" style="width:39.3%">39%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:33.5%">34%</div><div class="seg seg-draw" style="width:27.1%">27%</div><div class="seg seg-away" style="width:39.4%">39%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:39.0%">39%</div><div class="seg seg-draw" style="width:30.0%">30%</div><div class="seg seg-away" style="width:31.0%">31%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:46.5%">O 47%</div><div class="seg seg-under" style="width:53.5%">U 53%</div></div>
+<div class="bar-label">Market: Over 43.8% / Under 56.2%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:51.7%">Yes 52%</div><div class="seg seg-no" style="width:48.3%">No 48%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">12.9%</span></div>
+<div class="score-chip">0-1 <span class="pct">10.3%</span></div>
+<div class="score-chip">1-0 <span class="pct">9.3%</span></div>
+<div class="score-chip">1-2 <span class="pct">8.4%</span></div>
+<div class="score-chip">0-0 <span class="pct">8.1%</span></div>
+</div>
+<h4>Asian Handicap (-0.25)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:33.5%">Cover 34%</div><div class="seg seg-push" style="width:13.6%">Push 14%</div><div class="seg seg-lose" style="width:52.9%">Lose 53%</div></div>
+<div class="bar-label">Market: Home 46.0% / Away 54.0%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Cardiff v Preston</div>
+<div class="match-pick"><strong>58%</strong> Cardiff to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Cardiff to win</strong> &mdash; 57.8% avg <span class="agree-tag">(all sources agree)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:63.7%">64%</div><div class="seg seg-draw" style="width:19.7%">20%</div><div class="seg seg-away" style="width:16.6%">17%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:47.3%">47%</div><div class="seg seg-draw" style="width:27.0%">27%</div><div class="seg seg-away" style="width:25.7%">26%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:59.7%">60%</div><div class="seg seg-draw" style="width:20.1%">20%</div><div class="seg seg-away" style="width:20.2%">20%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:60.4%">60%</div><div class="seg seg-draw" style="width:20.8%">21%</div><div class="seg seg-away" style="width:18.8%">19%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:67.3%">O 67%</div><div class="seg seg-under" style="width:32.7%">U 33%</div></div>
+<div class="bar-label">Market: Over 66.3% / Under 33.7%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:63.5%">Yes 64%</div><div class="seg seg-no" style="width:36.5%">No 36%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">2-1 <span class="pct">9.6%</span></div>
+<div class="score-chip">1-1 <span class="pct">8.7%</span></div>
+<div class="score-chip">2-0 <span class="pct">7.8%</span></div>
+<div class="score-chip">3-1 <span class="pct">7.2%</span></div>
+<div class="score-chip">1-0 <span class="pct">6.8%</span></div>
+</div>
+<h4>Asian Handicap (-1.2)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:37.6%">Cover 38%</div><div class="seg seg-push" style="width:11.0%">Push 11%</div><div class="seg seg-lose" style="width:51.3%">Lose 51%</div></div>
+<div class="bar-label">Market: Home 47.7% / Away 52.3%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Charlton v Lincoln</div>
+<div class="match-pick"><strong>37%</strong> Charlton to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Charlton to win</strong> &mdash; 36.6% avg <span class="agree-tag">(sources split: 1 Home, 3 Away)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:34.9%">35%</div><div class="seg seg-draw" style="width:29.2%">29%</div><div class="seg seg-away" style="width:35.9%">36%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:34.1%">34%</div><div class="seg seg-draw" style="width:27.9%">28%</div><div class="seg seg-away" style="width:37.9%">38%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:44.0%">44%</div><div class="seg seg-draw" style="width:29.8%">30%</div><div class="seg seg-away" style="width:26.2%">26%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:33.2%">33%</div><div class="seg seg-draw" style="width:30.5%">31%</div><div class="seg seg-away" style="width:36.3%">36%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:35.0%">O 35%</div><div class="seg seg-under" style="width:65.0%">U 65%</div></div>
+<div class="bar-label">Market: Over 45.6% / Under 54.4%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:41.4%">Yes 41%</div><div class="seg seg-no" style="width:58.6%">No 59%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-0 <span class="pct">14.8%</span></div>
+<div class="score-chip">1-1 <span class="pct">13.3%</span></div>
+<div class="score-chip">0-0 <span class="pct">12.5%</span></div>
+<div class="score-chip">0-1 <span class="pct">10.5%</span></div>
+<div class="score-chip">2-0 <span class="pct">9.2%</span></div>
+</div>
+<h4>Asian Handicap (0)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:44.0%">Cover 44%</div><div class="seg seg-push" style="width:29.8%">Push 30%</div><div class="seg seg-lose" style="width:26.2%">Lose 26%</div></div>
+<div class="bar-label">Market: Home 48.7% / Away 51.3%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Middlesbrough v Swansea</div>
+<div class="match-pick"><strong>59%</strong> Middlesbrough to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Middlesbrough to win</strong> &mdash; 59.5% avg <span class="agree-tag">(all sources agree)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:65.0%">65%</div><div class="seg seg-draw" style="width:19.8%">20%</div><div class="seg seg-away" style="width:15.2%">15%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:51.1%">51%</div><div class="seg seg-draw" style="width:26.3%">26%</div><div class="seg seg-away" style="width:22.6%">23%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:54.4%">54%</div><div class="seg seg-draw" style="width:23.4%">23%</div><div class="seg seg-away" style="width:22.2%">22%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:67.4%">67%</div><div class="seg seg-draw" style="width:20.4%">20%</div><div class="seg seg-away" style="width:12.2%">12%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:54.8%">O 55%</div><div class="seg seg-under" style="width:45.2%">U 45%</div></div>
+<div class="bar-label">Market: Over 62.8% / Under 37.2%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:55.1%">Yes 55%</div><div class="seg seg-no" style="width:44.9%">No 45%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">11.1%</span></div>
+<div class="score-chip">1-0 <span class="pct">10.0%</span></div>
+<div class="score-chip">2-1 <span class="pct">9.8%</span></div>
+<div class="score-chip">2-0 <span class="pct">9.2%</span></div>
+<div class="score-chip">3-1 <span class="pct">5.9%</span></div>
+</div>
+<h4>Asian Handicap (-1.2)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:30.8%">Cover 31%</div><div class="seg seg-push" style="width:11.8%">Push 12%</div><div class="seg seg-lose" style="width:57.4%">Lose 57%</div></div>
+<div class="bar-label">Market: Home 48.5% / Away 51.5%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Norwich v QPR</div>
+<div class="match-pick"><strong>49%</strong> Norwich to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Norwich to win</strong> &mdash; 48.6% avg <span class="agree-tag">(all sources agree)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:47.9%">48%</div><div class="seg seg-draw" style="width:25.5%">25%</div><div class="seg seg-away" style="width:26.6%">27%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:45.4%">45%</div><div class="seg seg-draw" style="width:27.3%">27%</div><div class="seg seg-away" style="width:27.3%">27%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:52.7%">53%</div><div class="seg seg-draw" style="width:22.3%">22%</div><div class="seg seg-away" style="width:25.0%">25%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:48.3%">48%</div><div class="seg seg-draw" style="width:27.1%">27%</div><div class="seg seg-away" style="width:24.6%">25%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:62.7%">O 63%</div><div class="seg seg-under" style="width:37.3%">U 37%</div></div>
+<div class="bar-label">Market: Over 57.4% / Under 42.6%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:62.2%">Yes 62%</div><div class="seg seg-no" style="width:37.8%">No 38%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">10.0%</span></div>
+<div class="score-chip">2-1 <span class="pct">9.6%</span></div>
+<div class="score-chip">1-0 <span class="pct">7.5%</span></div>
+<div class="score-chip">2-0 <span class="pct">7.5%</span></div>
+<div class="score-chip">1-2 <span class="pct">6.3%</span></div>
+</div>
+<h4>Asian Handicap (-0.5)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:52.7%">Cover 53%</div><div class="seg seg-lose" style="width:47.3%">Lose 47%</div></div>
+<div class="bar-label">Market: Home 48.4% / Away 51.6%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Portsmouth v West Ham</div>
+<div class="match-pick"><strong>48%</strong> West Ham to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>West Ham to win</strong> &mdash; 47.9% avg <span class="agree-tag">(all sources agree)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:23.7%">24%</div><div class="seg seg-draw" style="width:25.4%">25%</div><div class="seg seg-away" style="width:50.9%">51%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:30.7%">31%</div><div class="seg seg-draw" style="width:27.7%">28%</div><div class="seg seg-away" style="width:41.6%">42%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:27.3%">27%</div><div class="seg seg-draw" style="width:23.9%">24%</div><div class="seg seg-away" style="width:48.8%">49%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:24.6%">25%</div><div class="seg seg-draw" style="width:25.3%">25%</div><div class="seg seg-away" style="width:50.0%">50%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:57.6%">O 58%</div><div class="seg seg-under" style="width:42.4%">U 42%</div></div>
+<div class="bar-label">Market: Over 53.1% / Under 46.9%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:59.1%">Yes 59%</div><div class="seg seg-no" style="width:40.9%">No 41%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">11.1%</span></div>
+<div class="score-chip">1-2 <span class="pct">9.5%</span></div>
+<div class="score-chip">0-1 <span class="pct">8.6%</span></div>
+<div class="score-chip">0-2 <span class="pct">7.6%</span></div>
+<div class="score-chip">2-1 <span class="pct">6.8%</span></div>
+</div>
+<h4>Asian Handicap (+0.5)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:51.2%">Cover 51%</div><div class="seg seg-lose" style="width:48.8%">Lose 49%</div></div>
+<div class="bar-label">Market: Home 48.0% / Away 52.0%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Sheffield United v Southampton</div>
+<div class="match-pick"><strong>39%</strong> Southampton to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Southampton to win</strong> &mdash; 38.7% avg <span class="agree-tag">(sources split: 2 Home, 2 Away)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:36.8%">37%</div><div class="seg seg-draw" style="width:26.7%">27%</div><div class="seg seg-away" style="width:36.5%">37%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:30.6%">31%</div><div class="seg seg-draw" style="width:27.7%">28%</div><div class="seg seg-away" style="width:41.7%">42%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:32.6%">33%</div><div class="seg seg-draw" style="width:24.6%">25%</div><div class="seg seg-away" style="width:42.8%">43%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:39.2%">39%</div><div class="seg seg-draw" style="width:27.1%">27%</div><div class="seg seg-away" style="width:33.6%">34%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:57.3%">O 57%</div><div class="seg seg-under" style="width:42.7%">U 43%</div></div>
+<div class="bar-label">Market: Over 56.4% / Under 43.6%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:59.9%">Yes 60%</div><div class="seg seg-no" style="width:40.1%">No 40%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">11.4%</span></div>
+<div class="score-chip">1-2 <span class="pct">9.0%</span></div>
+<div class="score-chip">0-1 <span class="pct">8.0%</span></div>
+<div class="score-chip">2-1 <span class="pct">7.7%</span></div>
+<div class="score-chip">1-0 <span class="pct">6.8%</span></div>
+</div>
+<h4>Asian Handicap (0)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:32.6%">Cover 33%</div><div class="seg seg-push" style="width:24.6%">Push 25%</div><div class="seg seg-lose" style="width:42.8%">Lose 43%</div></div>
+<div class="bar-label">Market: Home 50.0% / Away 50.0%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Wolves v Derby</div>
+<div class="match-pick"><strong>67%</strong> Wolves to win</div>
+<div class="match-time">20:00</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Wolves to win</strong> &mdash; 66.5% avg <span class="agree-tag">(all sources agree)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:72.3%">72%</div><div class="seg seg-draw" style="width:17.8%">18%</div><div class="seg seg-away" style="width:9.9%">10%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:61.1%">61%</div><div class="seg seg-draw" style="width:23.7%">24%</div><div class="seg seg-away" style="width:15.3%">15%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:58.8%">59%</div><div class="seg seg-draw" style="width:23.2%">23%</div><div class="seg seg-away" style="width:18.1%">18%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:74.0%">74%</div><div class="seg seg-draw" style="width:15.5%">15%</div><div class="seg seg-away" style="width:10.5%">11%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:50.5%">O 51%</div><div class="seg seg-under" style="width:49.5%">U 49%</div></div>
+<div class="bar-label">Market: Over 57.0% / Under 43.0%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:49.4%">Yes 49%</div><div class="seg seg-no" style="width:50.6%">No 51%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-0 <span class="pct">12.0%</span></div>
+<div class="score-chip">1-1 <span class="pct">11.0%</span></div>
+<div class="score-chip">2-0 <span class="pct">11.0%</span></div>
+<div class="score-chip">2-1 <span class="pct">9.8%</span></div>
+<div class="score-chip">0-0 <span class="pct">6.9%</span></div>
+</div>
+<h4>Asian Handicap (-1.5)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:33.9%">Cover 34%</div><div class="seg seg-lose" style="width:66.1%">Lose 66%</div></div>
+<div class="bar-label">Market: Home 50.1% / Away 49.9%</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="date-group" id="day-2026-11-25">
+<div class="league-section">
+<div class="league-hdr">Championship</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Bolton v West Brom</div>
+<div class="match-pick"><strong>47%</strong> West Brom to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>West Brom to win</strong> &mdash; 47.0% avg <span class="agree-tag">(all sources agree)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:26.7%">27%</div><div class="seg seg-draw" style="width:25.8%">26%</div><div class="seg seg-away" style="width:47.5%">47%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:26.1%">26%</div><div class="seg seg-draw" style="width:27.1%">27%</div><div class="seg seg-away" style="width:46.7%">47%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:27.9%">28%</div><div class="seg seg-draw" style="width:25.0%">25%</div><div class="seg seg-away" style="width:47.0%">47%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:27.5%">27%</div><div class="seg seg-draw" style="width:25.9%">26%</div><div class="seg seg-away" style="width:46.6%">47%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:52.9%">O 53%</div><div class="seg seg-under" style="width:47.1%">U 47%</div></div>
+<div class="bar-label">Market: Over 55.7% / Under 44.3%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:55.8%">Yes 56%</div><div class="seg seg-no" style="width:44.2%">No 44%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">11.8%</span></div>
+<div class="score-chip">0-1 <span class="pct">9.6%</span></div>
+<div class="score-chip">1-2 <span class="pct">9.4%</span></div>
+<div class="score-chip">0-2 <span class="pct">7.9%</span></div>
+<div class="score-chip">1-0 <span class="pct">7.1%</span></div>
+</div>
+<h4>Asian Handicap (+0.5)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:53.0%">Cover 53%</div><div class="seg seg-lose" style="width:47.0%">Lose 47%</div></div>
+<div class="bar-label">Market: Home 51.5% / Away 48.5%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Burnley v Birmingham</div>
+<div class="match-pick"><strong>38%</strong> Birmingham to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Birmingham to win</strong> &mdash; 38.3% avg <span class="agree-tag">(all sources agree)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:35.6%">36%</div><div class="seg seg-draw" style="width:26.5%">26%</div><div class="seg seg-away" style="width:37.9%">38%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:35.7%">36%</div><div class="seg seg-draw" style="width:28.0%">28%</div><div class="seg seg-away" style="width:36.3%">36%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:31.7%">32%</div><div class="seg seg-draw" style="width:25.3%">25%</div><div class="seg seg-away" style="width:42.9%">43%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:34.8%">35%</div><div class="seg seg-draw" style="width:29.1%">29%</div><div class="seg seg-away" style="width:36.1%">36%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:53.5%">O 53%</div><div class="seg seg-under" style="width:46.5%">U 47%</div></div>
+<div class="bar-label">Market: Over 55.0% / Under 45.0%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:56.9%">Yes 57%</div><div class="seg seg-no" style="width:43.1%">No 43%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">12.0%</span></div>
+<div class="score-chip">1-2 <span class="pct">9.0%</span></div>
+<div class="score-chip">0-1 <span class="pct">9.0%</span></div>
+<div class="score-chip">2-1 <span class="pct">7.6%</span></div>
+<div class="score-chip">1-0 <span class="pct">7.5%</span></div>
+</div>
+<h4>Asian Handicap (0)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:31.7%">Cover 32%</div><div class="seg seg-push" style="width:25.3%">Push 25%</div><div class="seg seg-lose" style="width:42.9%">Lose 43%</div></div>
+<div class="bar-label">Market: Home 48.3% / Away 51.7%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Watford v Blackburn</div>
+<div class="match-pick"><strong>37%</strong> Blackburn to win</div>
+<div class="match-time">19:45</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Blackburn to win</strong> &mdash; 36.8% avg <span class="agree-tag">(sources split: 2 Home, 2 Away)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:37.5%">37%</div><div class="seg seg-draw" style="width:27.3%">27%</div><div class="seg seg-away" style="width:35.2%">35%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:34.9%">35%</div><div class="seg seg-draw" style="width:27.9%">28%</div><div class="seg seg-away" style="width:37.1%">37%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:30.2%">30%</div><div class="seg seg-draw" style="width:29.0%">29%</div><div class="seg seg-away" style="width:40.8%">41%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:38.2%">38%</div><div class="seg seg-draw" style="width:27.7%">28%</div><div class="seg seg-away" style="width:34.1%">34%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:39.0%">O 39%</div><div class="seg seg-under" style="width:61.0%">U 61%</div></div>
+<div class="bar-label">Market: Over 51.3% / Under 48.7%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:45.4%">Yes 45%</div><div class="seg seg-no" style="width:54.6%">No 55%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">13.4%</span></div>
+<div class="score-chip">0-1 <span class="pct">12.8%</span></div>
+<div class="score-chip">0-0 <span class="pct">10.8%</span></div>
+<div class="score-chip">1-0 <span class="pct">10.5%</span></div>
+<div class="score-chip">1-2 <span class="pct">8.1%</span></div>
+</div>
+<h4>Asian Handicap (0)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:30.2%">Cover 30%</div><div class="seg seg-push" style="width:29.0%">Push 29%</div><div class="seg seg-lose" style="width:40.8%">Lose 41%</div></div>
+<div class="bar-label">Market: Home 51.3% / Away 48.7%</div>
+</div>
+</div>
+</div>
+<div class="match-card">
+<div class="match-summary" onclick="toggleCard(this)">
+<div class="match-teams">Stoke v Millwall</div>
+<div class="match-pick"><strong>41%</strong> Stoke to win</div>
+<div class="match-time">20:00</div>
+<div class="expand-icon">&#9660;</div>
+</div>
+<div class="match-detail">
+<div class="consensus-badge">Model favors: <strong>Stoke to win</strong> &mdash; 41.4% avg <span class="agree-tag">(all sources agree)</span></div>
+<div class="source-row">
+<div class="source-label">Market</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:42.5%">43%</div><div class="seg seg-draw" style="width:28.0%">28%</div><div class="seg seg-away" style="width:29.4%">29%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Elo</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:38.9%">39%</div><div class="seg seg-draw" style="width:27.9%">28%</div><div class="seg seg-away" style="width:33.2%">33%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">Dixon-Coles</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:42.1%">42%</div><div class="seg seg-draw" style="width:27.0%">27%</div><div class="seg seg-away" style="width:30.8%">31%</div></div>
+</div>
+<div class="source-row">
+<div class="source-label">XGBoost</div>
+<div class="bar-wrap"><div class="seg seg-home" style="width:42.1%">42%</div><div class="seg seg-draw" style="width:30.4%">30%</div><div class="seg seg-away" style="width:27.5%">27%</div></div>
+</div>
+<div class="secondary-markets">
+<h4>Over/Under 2.5 Goals</h4>
+<div class="two-bar"><div class="seg seg-over" style="width:46.2%">O 46%</div><div class="seg seg-under" style="width:53.8%">U 54%</div></div>
+<div class="bar-label">Market: Over 48.4% / Under 51.6%</div>
+<h4>Both Teams to Score</h4>
+<div class="two-bar"><div class="seg seg-yes" style="width:51.2%">Yes 51%</div><div class="seg seg-no" style="width:48.8%">No 49%</div></div>
+<div class="bar-label">Model only &mdash; no BTTS odds in data source</div>
+<h4>Most Likely Scores</h4>
+<div class="score-list">
+<div class="score-chip">1-1 <span class="pct">12.9%</span></div>
+<div class="score-chip">1-0 <span class="pct">10.9%</span></div>
+<div class="score-chip">0-1 <span class="pct">9.0%</span></div>
+<div class="score-chip">2-1 <span class="pct">8.7%</span></div>
+<div class="score-chip">0-0 <span class="pct">8.2%</span></div>
+</div>
+<h4>Asian Handicap (-0.25)</h4>
+<div class="two-bar"><div class="seg seg-cover" style="width:42.1%">Cover 42%</div><div class="seg seg-push" style="width:13.5%">Push 14%</div><div class="seg seg-lose" style="width:44.4%">Lose 44%</div></div>
+<div class="bar-label">Market: Home 50.0% / Away 50.0%</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>Probabilities are model estimates, not recommendations. Highest probability = most likely outcome, not necessarily value against the bookmaker's price.</p>
+</div>
+<script>function switchTab(dateKey) {
+  document.querySelectorAll('.date-tab').forEach(t => t.classList.toggle('active', t.dataset.date === dateKey));
+  document.querySelectorAll('.date-group').forEach(g => g.classList.toggle('active', g.id === 'day-' + dateKey));
+  // Update top picks visibility
+  document.querySelectorAll('.top-pick-item').forEach(li => {
+    li.style.display = (!li.dataset.date || li.dataset.date === dateKey) ? '' : 'none';
+  });
+  // Re-number visible picks
+  let n = 0;
+  document.querySelectorAll('.top-pick-item').forEach(li => {
+    if (li.style.display !== 'none') { n++; li.setAttribute('value', n); }
+  });
+}
+function toggleCard(el) {
+  el.closest('.match-card').classList.toggle('open');
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var first = document.querySelector('.date-tab');
+  if (first) switchTab(first.dataset.date);
+});
+</script>
+</body>
+</html>
